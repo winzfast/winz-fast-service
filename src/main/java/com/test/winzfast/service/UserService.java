@@ -3,16 +3,18 @@ package com.test.winzfast.service;
 import com.test.winzfast.dto.UserDTO;
 import com.test.winzfast.exception.DuplicatedDataException;
 import com.test.winzfast.exception.InvalidInputException;
-import com.test.winzfast.model.User;
-import com.test.winzfast.payload.request.LoginRequest;
-import com.test.winzfast.payload.request.RegisterRequest;
-import com.test.winzfast.payload.request.ResetPasswordRequest;
-import com.test.winzfast.payload.response.LoginResponse;
-import com.test.winzfast.payload.response.RegisterResponse;
-import com.test.winzfast.payload.response.ResetPasswordResponse;
+import com.test.winzfast.dto.payload.request.user.LoginRequest;
+import com.test.winzfast.dto.payload.request.user.RegisterRequest;
+import com.test.winzfast.dto.payload.request.user.ResetPasswordRequest;
+import com.test.winzfast.dto.payload.response.user.LoginResponse;
+import com.test.winzfast.dto.payload.response.user.RegisterResponse;
+import com.test.winzfast.dto.payload.response.user.ResetPasswordResponse;
 
 import java.util.Optional;
 
+/**
+ * @author ADMIN
+ */
 public interface UserService {
 
     //CRUD
