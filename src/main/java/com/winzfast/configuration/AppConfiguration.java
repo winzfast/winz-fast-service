@@ -19,7 +19,7 @@ public class AppConfiguration {
     }
 
     @Bean
-    public RegisterConverter registerConverter(){
+    public RegisterConverter registerConverter() {
         return new RegisterConverter();
     }
 }

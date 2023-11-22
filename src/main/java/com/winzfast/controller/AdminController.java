@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -48,8 +49,8 @@ public class AdminController {
         return ResponseEntity.ok("User " + username + " deleted!");
     }
 
-    @GetMapping("/find-user-by-username/{username}")
-    public ResponseEntity<List<UserDTO>> findUserByUsername(@PathVariable String username) {
-        return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
+    @GetMapping("/find-user/{input}")
+    public ResponseEntity<List<UserDTO>> findUser(@PathVariable String input) {
+        return new ResponseEntity<>(userService.findUser(input), HttpStatus.OK);
     }
 }

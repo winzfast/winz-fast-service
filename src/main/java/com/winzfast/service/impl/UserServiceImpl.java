@@ -18,7 +18,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -72,6 +71,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public RegisterResponse register(RegisterRequest registerRequest) throws DuplicatedDataException {
+
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
             throw new DuplicatedDataException("Username is already exist!");
         } else if (registerRequest.getPassword() == null || registerRequest.getPassword().isEmpty()) {
@@ -112,19 +112,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> findByUsername(String username) {
+    public List<UserDTO> findUser(String input) {
         Iterable<User> users = userRepository.findAll();
-        Iterable<UserDTO> userDTOS = StreamSupport.stream(users.spliterator(), true)
+
+        return StreamSupport.stream(users.spliterator(), true)
                 .map(user -> modelMapper.map(user, UserDTO.class))
-                .collect(Collectors.toList());
-        List<UserDTO> matchingUsers = new ArrayList<>();
-        for (UserDTO userDTO : userDTOS) {
-            if (userDTO.getUsername().contains(username)) {
-                matchingUsers.add(userDTO);
-            } else {
-                throw new RuntimeException("User is not found!");
-            }
-        }
-        return matchingUsers;
+                .filter(userDTO -> userDTO.getUsername().contains(input)
+                        || userDTO.getEmail().contains(input)
+                        || userDTO.getPhoneNumber().contains(input))
+                .toList();
     }
 }
