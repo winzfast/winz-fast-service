@@ -1,18 +1,18 @@
 package com.test.winzfast.service;
 
 
-import com.test.winzfast.dto.request.ProductRequestDTO;
-import com.test.winzfast.dto.request.SearchRequestDTO;
-import com.test.winzfast.dto.response.ProductResponseDTO;
-import com.test.winzfast.dto.response.ResponseDTO;
+import com.test.winzfast.dto.payload.request.product.ProductRequest;
+import com.test.winzfast.dto.payload.request.product.SearchRequest;
+import com.test.winzfast.dto.payload.response.product.ProductResponse;
+import com.test.winzfast.dto.payload.response.product.Response;
 
 public interface ProductService {
 
-    ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO);
+    ProductResponse createProduct(ProductRequest productRequest);
 
-    ProductResponseDTO updateProduct(Long id, ProductRequestDTO productRequestDTO);
+    ProductResponse updateProduct(Long id, ProductRequest productRequest);
     boolean exists(Long id);
-    ResponseDTO delete(Long id);
-    ResponseDTO search(SearchRequestDTO searchRequestDTO);
-    ResponseDTO increaseViews(Long id);
+    Response delete(Long id);
+    Response search(SearchRequest searchRequestDTO);
+    Response increaseViews(Long id);
 }

@@ -1,17 +1,15 @@
 package com.test.winzfast.service.impl;
 
-import com.test.winzfast.converter.ProductConverter;
-import com.test.winzfast.dto.request.ProductRequestDTO;
-import com.test.winzfast.dto.request.SearchRequestDTO;
-import com.test.winzfast.dto.response.ProductResponseDTO;
-import com.test.winzfast.dto.response.ResponseDTO;
+import com.test.winzfast.converter.product.ProductConverter;
+import com.test.winzfast.dto.payload.request.product.ProductRequest;
+import com.test.winzfast.dto.payload.request.product.SearchRequest;
+import com.test.winzfast.dto.payload.response.product.ProductResponse;
+import com.test.winzfast.dto.payload.response.product.Response;
 import com.test.winzfast.model.Category;
 import com.test.winzfast.model.Product;
-import com.test.winzfast.model.Specification;
 import com.test.winzfast.model.User;
 import com.test.winzfast.repository.CategoryRepository;
 import com.test.winzfast.repository.ProductRepository;
-import com.test.winzfast.repository.SpecificationRepository;
 import com.test.winzfast.repository.UserRepository;
 import com.test.winzfast.service.ProductService;
 import jakarta.persistence.EntityExistsException;
@@ -22,6 +20,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author ADMIN
+ */
 @Service
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -30,34 +31,33 @@ public class ProductServiceImpl implements ProductService {
     private final ProductConverter productConverter;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
-    private final SpecificationRepository specificationRepository;
 
     @Override
-    public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
+    public ProductResponse createProduct(ProductRequest productRequest) {
         Product product = new Product();
-        return getProductResponseDTO(productRequestDTO, product);
+        return getProductResponse(productRequest, product);
     }
 
     @Override
-    public ProductResponseDTO updateProduct(Long id, ProductRequestDTO productRequestDTO) {
+    public ProductResponse updateProduct(Long id, ProductRequest productRequest) {
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isEmpty()) {
             throw new RuntimeException("Product not found with id" + id);
         }
         Product product = optionalProduct.get();
-        return getProductResponseDTO(productRequestDTO, product);
+        return getProductResponse(productRequest, product);
     }
 
-    private ProductResponseDTO getProductResponseDTO(ProductRequestDTO productRequestDTO, Product product) {
-        product.setTitle(productRequestDTO.getTitle());
-        product.setThumbnail(productRequestDTO.getThumbnail());
-        product.setProductDate(productRequestDTO.getProductDate());
-        product.setPrice(productRequestDTO.getPrice());
-        product.setDelete(productRequestDTO.isDelete());
-        Long categoryId = productRequestDTO.getCategory();
+    private ProductResponse getProductResponse(ProductRequest productRequest, Product product) {
+        product.setTitle(productRequest.getTitle());
+        product.setThumbnail(productRequest.getThumbnail());
+        product.setProductDate(productRequest.getProductDate());
+        product.setPrice(productRequest.getPrice());
+        product.setDelete(productRequest.isDelete());
+        Long categoryId = productRequest.getCategory();
         Category category = categoryRepository.findById(categoryId).orElse(null);
         product.setCategory(category);
-        Long userId = productRequestDTO.getUser();
+        Long userId = productRequest.getUser();
         User user = userRepository.findById(userId).orElse(null);
         product.setUser(user);
         productRepository.save(product);
@@ -69,41 +69,38 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResponseDTO delete(Long id) {
+    public Response delete(Long id) {
         Optional<Product> product=productRepository.findById(id);
         if (product.isPresent()){
             Product foundProduct= product.get();
             foundProduct.setDelete(true);
             productRepository.save(foundProduct);
-        return new ResponseDTO("Product delete successfully!", null, HttpStatus.OK.value(), true);
+        return new Response("Product delete successfully!", null, HttpStatus.OK.value(), true);
         } else {
-            return new ResponseDTO("Product delete false", null, HttpStatus.NOT_FOUND.value(), false);
+            return new Response("Product delete false", null, HttpStatus.NOT_FOUND.value(), false);
+        }
+    }
+
+
+
+
+    @Override
+    public Response search(SearchRequest searchRequestDTO) {
+        List<Product> products = productRepository.findByTitleAndSpecificationsBrandAndSpecificationsCarModel(
+                searchRequestDTO.getTitle(),
+                searchRequestDTO.getBrand(),
+                searchRequestDTO.getCarModel()
+        );
+        if (!products.isEmpty()){
+            return new Response("Found products", products, HttpStatus.OK.value());
+        } else {
+            return new Response("Not found products", null, HttpStatus.OK.value());
         }
     }
 
     @Override
-    public ResponseDTO search(SearchRequestDTO searchRequestDTO) {
-        return null;
-    }
-
-
-//    @Override
-//    public ResponseDTO search(SearchRequestDTO searchRequestDTO) {
-//        List<Product> products = productRepository.findByTitleAndSpecificationsBrandAndSpecificationsCarModel(
-//                searchRequestDTO.getTitle(),
-//                searchRequestDTO.getBrand(),
-//                searchRequestDTO.getCarModel()
-//        );
-//        if (!products.isEmpty()){
-//            return new ResponseDTO("Found products", products, HttpStatus.OK.value());
-//        } else {
-//            return new ResponseDTO("Not found products", null, HttpStatus.OK.value());
-//        }
-//    }
-
-    @Override
-    public ResponseDTO increaseViews(Long id) {
-        ResponseDTO responseDTO=new ResponseDTO();
+    public Response increaseViews(Long id) {
+        Response responseDTO=new Response();
         Product product=productRepository.findById(id).orElseThrow(EntityExistsException::new);
         int currentView= product.getView();
         currentView+=1;

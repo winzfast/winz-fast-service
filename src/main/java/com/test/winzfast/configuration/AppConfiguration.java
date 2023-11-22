@@ -1,7 +1,7 @@
 package com.test.winzfast.configuration;
 
-import com.test.winzfast.converter.LoginConverter;
-import com.test.winzfast.converter.RegisterConverter;
+import com.test.winzfast.converter.user.LoginConverter;
+import com.test.winzfast.converter.user.RegisterConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
