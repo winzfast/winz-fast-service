@@ -1,4 +1,4 @@
-package com.test.winzfast.converter.controller;
+package com.test.winzfast.controller;
 
 
 import com.test.winzfast.dto.request.ProductRequestDTO;
