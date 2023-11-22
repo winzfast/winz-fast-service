@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductConverter {
-    @Autowired
-    private SpecificationConverter specificationConverter;
 
     public ProductResponseDTO getProductResponseDTO(Product product) {
         ProductResponseDTO responseDTO = new ProductResponseDTO();

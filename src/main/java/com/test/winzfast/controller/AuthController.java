@@ -1,4 +1,4 @@
-package com.test.winzfast.converter.controller;
+package com.test.winzfast.controller;
 
 import com.test.winzfast.exception.DuplicatedDataException;
 import com.test.winzfast.exception.InvalidInputException;
