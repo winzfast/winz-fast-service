@@ -1,4 +1,4 @@
-package com.winzfast.dto.request;
+package com.winzfast.dto.payload.request.product;
 
 import com.winzfast.model.Specification;
 
@@ -6,8 +6,12 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * @author ADMIN
+ */
 @Data
-public class ProductRequestDTO {
+public class ProductRequest {
+
     private Long id;
     private String title;
     private String thumbnail;
@@ -18,4 +22,5 @@ public class ProductRequestDTO {
     private Long category;
     private Specification specification;
     private boolean isDelete;
+
 }

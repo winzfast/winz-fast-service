@@ -1,18 +1,23 @@
-package com.winzfast.dto.response;
+
+package com.winzfast.dto.payload.response.product;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author ADMIN
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseDTO {
+public class Response {
     private String message;
     private Object data;
     private int status;
 
-    public ResponseDTO(String s, Object o, int value, boolean b) {
+    public Response(String s, Object o, int value, boolean b) {
 
     }
 }

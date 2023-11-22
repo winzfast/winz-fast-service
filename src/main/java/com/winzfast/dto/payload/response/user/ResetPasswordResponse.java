@@ -1,8 +1,12 @@
-package com.winzfast.payload.response;
+package com.winzfast.dto.payload.response.user;
+
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
+/**
+ * @author ADMIN
+ */
 @Data
 public class ResetPasswordResponse {
 

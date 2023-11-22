@@ -1,16 +1,17 @@
 package com.winzfast.service.impl;
 
+
 import com.winzfast.converter.LoginConverter;
 import com.winzfast.converter.RegisterConverter;
 import com.winzfast.dto.UserDTO;
+import com.winzfast.dto.payload.request.user.LoginRequest;
+import com.winzfast.dto.payload.request.user.RegisterRequest;
+import com.winzfast.dto.payload.request.user.ResetPasswordRequest;
+import com.winzfast.dto.payload.response.user.LoginResponse;
+import com.winzfast.dto.payload.response.user.RegisterResponse;
+import com.winzfast.dto.payload.response.user.ResetPasswordResponse;
 import com.winzfast.exception.DuplicatedDataException;
 import com.winzfast.model.User;
-import com.winzfast.payload.request.LoginRequest;
-import com.winzfast.payload.request.RegisterRequest;
-import com.winzfast.payload.request.ResetPasswordRequest;
-import com.winzfast.payload.response.LoginResponse;
-import com.winzfast.payload.response.RegisterResponse;
-import com.winzfast.payload.response.ResetPasswordResponse;
 import com.winzfast.repository.UserRepository;
 import com.winzfast.service.UserService;
 import lombok.AllArgsConstructor;

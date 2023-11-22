@@ -1,12 +1,16 @@
-package com.winzfast.dto.response;
+package com.winzfast.dto.payload.response.product;
 
 import com.winzfast.model.Specification;
 import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * @author ADMIN
+ */
 @Data
-public class ProductResponseDTO {
+public class ProductResponse {
+
     private Long id;
     private String title;
     private String thumbnail;

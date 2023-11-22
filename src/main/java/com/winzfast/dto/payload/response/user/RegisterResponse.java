@@ -1,7 +1,12 @@
-package com.winzfast.payload.response;
+
+package com.winzfast.dto.payload.response.user;
+
 
 import lombok.Data;
 
+/**
+ * @author ADMIN
+ */
 @Data
 public class RegisterResponse {
     private String username;

@@ -1,9 +1,14 @@
-package com.winzfast.dto.request;
+package com.winzfast.dto.payload.request.product;
 
 import lombok.Data;
 
+/**
+ * @author ADMIN
+ */
+
 @Data
-public class SpecificationRequestDTO {
+public class SpecificationRequest {
+
     private Long id;
     private String brand;
     private String carModel;

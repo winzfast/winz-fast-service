@@ -1,7 +1,9 @@
 package com.winzfast.converter;
 
+import com.winzfast.dto.payload.response.user.RegisterResponse;
 import com.winzfast.model.User;
-import com.winzfast.payload.response.RegisterResponse;
+import org.springframework.stereotype.Component;
+
 
 public class RegisterConverter {
     public static RegisterResponse registerEntityToDto(User user) {

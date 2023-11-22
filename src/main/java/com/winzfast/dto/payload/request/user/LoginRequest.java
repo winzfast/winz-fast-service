@@ -1,9 +1,14 @@
-package com.winzfast.payload.request;
+package com.winzfast.dto.payload.request.user;
 
 import lombok.Data;
 
+/**
+ * @author ADMIN
+ */
 @Data
 public class LoginRequest {
+
     private String username;
     private String password;
+
 }

@@ -1,28 +1,32 @@
 package com.winzfast.controller;
 
 
-import com.winzfast.dto.request.ProductRequestDTO;
-import com.winzfast.dto.response.ProductResponseDTO;
-import com.winzfast.dto.response.ResponseDTO;
+
+import com.winzfast.dto.payload.request.product.ProductRequest;
+import com.winzfast.dto.payload.request.product.SearchRequest;
+import com.winzfast.dto.payload.response.product.ProductResponse;
+import com.winzfast.dto.payload.response.product.Response;
 import com.winzfast.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/products")
+@CrossOrigin(origins = "*")
+@AllArgsConstructor
 public class ProductRestController {
-    @Autowired
-    private ProductService productService;
+
+  private final ProductService productService;
     @PostMapping("/create")
-    public ResponseEntity<ProductResponseDTO> createProduct(@RequestBody ProductRequestDTO productRequestDTO){
-        ProductResponseDTO productResponseDTO= productService.createProduct(productRequestDTO);
+    public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest productRequestDTO){
+        ProductResponse productResponseDTO= productService.createProduct(productRequestDTO);
         return new ResponseEntity<>(productResponseDTO, HttpStatus.CREATED);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<ProductResponseDTO> updateProduct(@PathVariable Long id, @RequestBody ProductRequestDTO productRequestDTO) {
-        ProductResponseDTO productResponseDTO = productService.updateProduct(id,productRequestDTO);
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @RequestBody ProductRequest productRequestDTO) {
+        ProductResponse productResponseDTO = productService.updateProduct(id,productRequestDTO);
         if (productRequestDTO != null) {
             return new ResponseEntity<>(productResponseDTO, HttpStatus.OK);
         } else {
@@ -30,17 +34,17 @@ public class ProductRestController {
         }
     }
     @DeleteMapping("/{id}")
-    public ResponseDTO deleteProduct(@PathVariable Long id) {
+    public Response deleteProduct(@PathVariable Long id) {
         return productService.delete(id);
     }
 
-//    @PostMapping("/search")
-//    public ResponseDTO searchProducts(@RequestBody SearchRequestDTO searchRequestDTO) {
-//        return productService.search(searchRequestDTO);
-//    }
+    @PostMapping("/search")
+    public Response searchProducts(@RequestBody SearchRequest searchRequest) {
+        return productService.search(searchRequest);
+    }
 
     @PostMapping("/{id}/increase-views")
-    public ResponseDTO increaseProductViews(@PathVariable Long id) {
+    public Response increaseProductViews(@PathVariable Long id) {
         return productService.increaseViews(id);
     }
 
