@@ -3,7 +3,6 @@ package com.test.winzfast.service.impl;
 import com.test.winzfast.converter.product.SpecificationConverter;
 import com.test.winzfast.dto.payload.request.product.SpecificationRequest;
 import com.test.winzfast.dto.payload.response.product.SpecificationResponse;
-import com.test.winzfast.model.Product;
 import com.test.winzfast.model.Specification;
 import com.test.winzfast.repository.ProductRepository;
 import com.test.winzfast.repository.SpecificationRepository;
@@ -29,11 +28,37 @@ public class SpecificationServiceImpl implements SpecificationService {
 
     @Override
     public SpecificationResponse createSpecification(SpecificationRequest specificationRequest) {
-//        if (!productService.exists(specificationRequestDTO.getProduct().getId())) {
-//            throw new RuntimeException("Product not found");
-//        }
         Specification specification = new Specification();
-        return getSpecificationResponse(specificationRequest, specification);
+
+        specification.setBrand(specificationRequest.getBrand());
+        specification.setCarModel(specificationRequest.getCarModel());
+        specification.setEngine(specificationRequest.getEngine());
+        specification.setYear(specificationRequest.getYear());
+        specification.setFuel(specificationRequest.getFuel());
+        specification.setOrigin(specificationRequest.getOrigin());
+        specification.setGear(specificationRequest.getGear());
+        specification.setNumberOfSeat(specificationRequest.getNumberOfSeat());
+        specification.setDelete(specificationRequest.isDelete());
+
+
+        Specification savedSpecification = specificationRepository.save(specification);
+
+
+        return getSpecificationResponseDTO(savedSpecification);
+    }
+    public SpecificationResponse getSpecificationResponseDTO(Specification specification) {
+        SpecificationResponse response = new SpecificationResponse();
+        response.setBrand(specification.getBrand());
+        response.setCarModel(specification.getCarModel());
+        response.setEngine(specification.getEngine());
+        response.setYear(specification.getYear());
+        response.setFuel(specification.getFuel());
+        response.setOrigin(specification.getOrigin());
+        response.setGear(specification.getGear());
+        response.setNumberOfSeat(specification.getNumberOfSeat());
+        response.setDelete(specification.isDelete());
+
+        return response;
     }
 
     @Override
@@ -57,12 +82,15 @@ public class SpecificationServiceImpl implements SpecificationService {
         specification.setNumberOfSeat(specificationRequest.getNumberOfSeat());
         specification.setYear(specificationRequest.getYear());
         specification.setDelete(specificationRequest.isDelete());
+
         Long productId = specificationRequest.getProduct();
-        Product product = productRepository.findById(productId).orElse(null);
-        specification.setProduct(product);
+        productRepository.findById(productId).ifPresent(product -> specification.setProducts(List.of(product)));
+
         specificationRepository.save(specification);
-        return specificationConverter.getSpecificationResponseDTO(specification);
+
+        return specificationConverter.convertToSpecificationResponse(specification);
     }
+
 
     @Override
     public List<Specification> sort(String sortBy, String brand, String carModel) {

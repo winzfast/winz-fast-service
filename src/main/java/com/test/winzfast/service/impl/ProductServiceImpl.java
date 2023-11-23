@@ -54,15 +54,20 @@ public class ProductServiceImpl implements ProductService {
         product.setProductDate(productRequest.getProductDate());
         product.setPrice(productRequest.getPrice());
         product.setDelete(productRequest.isDelete());
+
         Long categoryId = productRequest.getCategory();
         Category category = categoryRepository.findById(categoryId).orElse(null);
         product.setCategory(category);
+
         Long userId = productRequest.getUser();
         User user = userRepository.findById(userId).orElse(null);
         product.setUser(user);
+
         productRepository.save(product);
-        return productConverter.getProductResponseDTO(product);
+
+        return productConverter.convertToProductResponse(product);
     }
+
     @Override
     public boolean exists(Long id) {
         return productRepository.existsById(id);
@@ -85,17 +90,15 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public Response search(SearchRequest searchRequestDTO) {
-        List<Product> products = productRepository.findByTitleAndSpecificationsBrandAndSpecificationsCarModel(
-                searchRequestDTO.getTitle(),
-                searchRequestDTO.getBrand(),
-                searchRequestDTO.getCarModel()
-        );
-        if (!products.isEmpty()){
-            return new Response("Found products", products, HttpStatus.OK.value());
-        } else {
-            return new Response("Not found products", null, HttpStatus.OK.value());
-        }
+    public Response search(SearchRequest searchRequest) {
+       String keyword = "%" + searchRequest.getTitle() + "%";
+       List<Product> foundProducts = productRepository.searchInProductAndSpecifications(keyword);
+
+       if(!foundProducts.isEmpty()){
+           return new Response("Found products", foundProducts, HttpStatus.OK.value());
+       } else {
+           return new Response("Not found products", null, HttpStatus.OK.value());
+       }
     }
 
     @Override

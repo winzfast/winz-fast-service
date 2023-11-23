@@ -1,7 +1,9 @@
 package com.test.winzfast.dto.payload.request.product;
 
 import com.test.winzfast.model.Product;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -9,9 +11,10 @@ import java.util.Date;
  * @author ADMIN
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SpecificationRequest {
 
-    private Long id;
     private String brand;
     private String carModel;
     private String engine;
@@ -22,5 +25,4 @@ public class SpecificationRequest {
     private int numberOfSeat;
     private boolean isDelete;
     private Long product;
-
 }

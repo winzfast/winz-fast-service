@@ -3,7 +3,9 @@ package com.test.winzfast.dto.payload.response.product;
 import com.test.winzfast.model.Category;
 import com.test.winzfast.model.Specification;
 import com.test.winzfast.model.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -11,6 +13,8 @@ import java.util.Date;
  * @author ADMIN
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductResponse {
 
     private Long id;
@@ -19,10 +23,10 @@ public class ProductResponse {
     private Date productDate;
     private String price;
     private int view;
-    private Long category;
-    private Long user;
-    private Specification specification;
     private boolean isDelete;
-    private String message;
+    private User user;
+    private Category category;
+    private Specification specification;
 
 }
+

@@ -1,13 +1,16 @@
 package com.test.winzfast.dto.payload.response.product;
 
 
-import com.test.winzfast.model.Product;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author ADMIN
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SpecificationResponse {
 
     private Long id;
@@ -19,7 +22,6 @@ public class SpecificationResponse {
     private String origin;
     private String gear;
     private int numberOfSeat;
-    private Long product;
     private boolean isDelete;
-    private String message;
+
 }

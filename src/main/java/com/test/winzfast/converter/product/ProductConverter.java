@@ -11,17 +11,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductConverter {
 
-    public ProductResponse getProductResponseDTO(Product product) {
-        ProductResponse response = new ProductResponse();
-        response.setId(product.getId());
-        response.setTitle(product.getTitle());
-        response.setThumbnail(product.getThumbnail());
-        response.setPrice(product.getPrice());
-        response.setView(product.getView());
-        response.setProductDate(product.getProductDate());
-        response.setDelete(product.isDelete());
-        response.setCategory(product.getCategory().getId());
-        response.setUser(product.getUser().getId());
-        return response;
+    public ProductResponse convertToProductResponse(Product product) {
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setId(product.getId());
+        productResponse.setTitle(product.getTitle());
+        productResponse.setThumbnail(product.getThumbnail());
+        productResponse.setProductDate(product.getProductDate());
+        productResponse.setPrice(product.getPrice());
+        productResponse.setView(product.getView());
+        productResponse.setDelete(product.isDelete());
+        productResponse.setUser(product.getUser());
+        productResponse.setCategory(product.getCategory());
+        productResponse.setSpecification(product.getSpecification());
+
+        return productResponse;
     }
 }

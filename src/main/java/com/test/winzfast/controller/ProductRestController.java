@@ -40,8 +40,9 @@ public class ProductRestController {
     }
 
     @PostMapping("/search")
-    public Response searchProducts(@RequestBody SearchRequest searchRequest) {
-        return productService.search(searchRequest);
+    public ResponseEntity<Response> searchProducts(@RequestBody SearchRequest searchRequest) {
+        Response response = productService.search(searchRequest);
+        return ResponseEntity.status(response.getStatus()).body(response);
     }
 
     @PostMapping("/{id}/increase-views")
