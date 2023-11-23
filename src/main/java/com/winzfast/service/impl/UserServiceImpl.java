@@ -18,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,9 +34,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public Iterable<UserDTO> findAll() {
         Iterable<User> users = userRepository.findAll();
-        return StreamSupport.stream(users.spliterator(), true)
-                .map(user -> modelMapper.map(user, UserDTO.class))
-                .collect(Collectors.toList());
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for (User user : users) {
+            userDTOS.add(modelMapper.map(user, UserDTO.class));
+        }
+        return userDTOS;
+
+//        return StreamSupport.stream(users.spliterator(), true)
+//                .map(user -> modelMapper.map(user, UserDTO.class))
+//                .collect(Collectors.toList());
     }
 
     @Override
@@ -112,14 +119,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> findUser(String input) {
+    public Iterable<UserDTO> findUser(String input) {
         Iterable<User> users = userRepository.findAll();
 
-        return StreamSupport.stream(users.spliterator(), true)
-                .map(user -> modelMapper.map(user, UserDTO.class))
-                .filter(userDTO -> userDTO.getUsername().contains(input)
-                        || userDTO.getEmail().contains(input)
-                        || userDTO.getPhoneNumber().contains(input))
-                .toList();
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for (User user : users) {
+            if (user.getUsername().contains(input)
+                    || user.getEmail().contains(input)) {
+                userDTOS.add(modelMapper.map(user, UserDTO.class));
+            }
+        }
+        return userDTOS;
+
+//        return StreamSupport.stream(users.spliterator(), true)
+//                .map(user -> modelMapper.map(user, UserDTO.class))
+//                .filter(userDTO -> userDTO.getUsername().contains(input)
+//                        || userDTO.getEmail().contains(input)
+//                        || userDTO.getPhoneNumber().contains(input))
+//                .collect(Collectors.toList());
+//
     }
 }

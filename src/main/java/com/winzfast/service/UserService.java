@@ -10,7 +10,6 @@ import com.winzfast.payload.response.LoginResponse;
 import com.winzfast.payload.response.RegisterResponse;
 import com.winzfast.payload.response.ResetPasswordResponse;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -33,5 +32,5 @@ public interface UserService {
 
     UserDTO getUserById(Long id);
 
-    List<UserDTO> findUser(String username);
+    Iterable<UserDTO> findUser(String username);
 }
