@@ -42,7 +42,7 @@ public class Specification {
     @Column(name = "number_of_seat")
     private int numberOfSeat;
 
-    @OneToMany(mappedBy = "specifications")
+    @OneToMany(mappedBy = "specification")
     private List<Product> products;
 
     @Column(name = "is_deleted")
