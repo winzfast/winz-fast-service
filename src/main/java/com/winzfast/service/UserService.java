@@ -1,12 +1,12 @@
 package com.winzfast.service;
 
 import com.winzfast.dto.UserDTO;
-import com.winzfast.dto.request.user.LoginRequest;
-import com.winzfast.dto.request.user.RegisterRequest;
-import com.winzfast.dto.request.user.ResetPasswordRequest;
-import com.winzfast.dto.response.user.LoginResponse;
-import com.winzfast.dto.response.user.RegisterResponse;
-import com.winzfast.dto.response.user.ResetPasswordResponse;
+import com.winzfast.dto.payload.request.user.LoginRequest;
+import com.winzfast.dto.payload.request.user.RegisterRequest;
+import com.winzfast.dto.payload.request.user.ResetPasswordRequest;
+import com.winzfast.dto.payload.response.user.LoginResponse;
+import com.winzfast.dto.payload.response.user.RegisterResponse;
+import com.winzfast.dto.payload.response.user.ResetPasswordResponse;
 import com.winzfast.exception.DuplicatedDataException;
 import com.winzfast.exception.InvalidInputException;
 

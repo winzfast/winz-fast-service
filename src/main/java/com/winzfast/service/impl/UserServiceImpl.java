@@ -38,6 +38,9 @@ public class UserServiceImpl implements UserService {
             userDTOS.add(modelMapper.map(user, UserDTO.class));
         }
         return userDTOS;
+//        return StreamSupport.stream(users.spliterator(), true)
+//                .map(user -> modelMapper.map(user, UserDTO.class))
+//                .collect(Collectors.toList());
     }
 
     @Override
@@ -120,8 +123,7 @@ public class UserServiceImpl implements UserService {
 
         List<UserDTO> userDTOS = new ArrayList<>();
         for (User user : users) {
-            if (user.getUsername().contains(input)
-                    || user.getEmail().contains(input)) {
+            if (user.getUsername().contains(input)) {
                 userDTOS.add(modelMapper.map(user, UserDTO.class));
             }
         }
