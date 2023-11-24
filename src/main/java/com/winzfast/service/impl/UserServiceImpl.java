@@ -5,12 +5,12 @@ import com.winzfast.converter.RegisterConverter;
 import com.winzfast.dto.UserDTO;
 import com.winzfast.exception.DuplicatedDataException;
 import com.winzfast.model.User;
-import com.winzfast.payload.request.LoginRequest;
-import com.winzfast.payload.request.RegisterRequest;
-import com.winzfast.payload.request.ResetPasswordRequest;
-import com.winzfast.payload.response.LoginResponse;
-import com.winzfast.payload.response.RegisterResponse;
-import com.winzfast.payload.response.ResetPasswordResponse;
+import com.winzfast.dto.request.user.LoginRequest;
+import com.winzfast.dto.request.user.RegisterRequest;
+import com.winzfast.dto.request.user.ResetPasswordRequest;
+import com.winzfast.dto.response.user.LoginResponse;
+import com.winzfast.dto.response.user.RegisterResponse;
+import com.winzfast.dto.response.user.ResetPasswordResponse;
 import com.winzfast.repository.UserRepository;
 import com.winzfast.service.UserService;
 import lombok.AllArgsConstructor;
@@ -21,8 +21,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @AllArgsConstructor
 @Service

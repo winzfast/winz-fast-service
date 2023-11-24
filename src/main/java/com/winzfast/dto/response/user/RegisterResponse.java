@@ -1,9 +1,9 @@
-package com.winzfast.payload.request;
+package com.winzfast.dto.response.user;
 
 import lombok.Data;
 
 @Data
-public class RegisterRequest {
+public class RegisterResponse {
     private String username;
     private String password;
     private String email;

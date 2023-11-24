@@ -1,7 +1,7 @@
 package com.winzfast.converter;
 
 import com.winzfast.model.User;
-import com.winzfast.payload.response.LoginResponse;
+import com.winzfast.dto.response.user.LoginResponse;
 
 public class LoginConverter {
     public static LoginResponse loginEntityToDto(User user) {

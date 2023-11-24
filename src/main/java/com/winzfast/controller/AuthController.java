@@ -2,12 +2,12 @@ package com.winzfast.controller;
 
 import com.winzfast.exception.DuplicatedDataException;
 import com.winzfast.exception.InvalidInputException;
-import com.winzfast.payload.request.LoginRequest;
-import com.winzfast.payload.request.RegisterRequest;
-import com.winzfast.payload.request.ResetPasswordRequest;
-import com.winzfast.payload.response.LoginResponse;
-import com.winzfast.payload.response.RegisterResponse;
-import com.winzfast.payload.response.ResetPasswordResponse;
+import com.winzfast.dto.request.user.LoginRequest;
+import com.winzfast.dto.request.user.RegisterRequest;
+import com.winzfast.dto.request.user.ResetPasswordRequest;
+import com.winzfast.dto.response.user.LoginResponse;
+import com.winzfast.dto.response.user.RegisterResponse;
+import com.winzfast.dto.response.user.ResetPasswordResponse;
 import com.winzfast.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.winzfast.payload.request;
+package com.winzfast.dto.request.user;
 
 import lombok.Data;
 

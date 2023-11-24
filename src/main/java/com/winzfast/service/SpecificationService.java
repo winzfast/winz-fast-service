@@ -1,16 +1,16 @@
 package com.winzfast.service;
 
 
-import com.winzfast.dto.request.SpecificationRequestDTO;
-import com.winzfast.dto.response.SpecificationResponseDTO;
+import com.winzfast.dto.request.product.SpecificationRequest;
+import com.winzfast.dto.response.product.SpecificationResponse;
 import com.winzfast.model.Specification;
 
 import java.util.List;
 
 public interface SpecificationService {
-    SpecificationResponseDTO createSpecification(SpecificationRequestDTO specificationRequestDTO);
+    SpecificationResponse createSpecification(SpecificationRequest specificationRequest);
 
-    SpecificationResponseDTO updateSpecification(Long id, SpecificationRequestDTO specificationRequestDTO);
+    SpecificationResponse updateSpecification(Long id, SpecificationRequest specificationRequest);
 
     List<Specification> sort(String sortBy, String brand, String carModel);
 }

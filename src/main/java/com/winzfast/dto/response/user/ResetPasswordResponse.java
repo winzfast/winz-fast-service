@@ -1,4 +1,4 @@
-package com.winzfast.payload.response;
+package com.winzfast.dto.response.user;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;

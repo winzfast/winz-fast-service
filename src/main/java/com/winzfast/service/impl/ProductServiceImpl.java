@@ -1,10 +1,10 @@
 package com.winzfast.service.impl;
 
 import com.winzfast.converter.ProductConverter;
-import com.winzfast.dto.request.ProductRequestDTO;
-import com.winzfast.dto.request.SearchRequestDTO;
-import com.winzfast.dto.response.ProductResponseDTO;
-import com.winzfast.dto.response.ResponseDTO;
+import com.winzfast.dto.request.product.ProductRequest;
+import com.winzfast.dto.request.product.SearchRequest;
+import com.winzfast.dto.response.product.ProductResponse;
+import com.winzfast.dto.response.product.Response;
 import com.winzfast.model.Category;
 import com.winzfast.model.Product;
 import com.winzfast.model.User;
@@ -31,31 +31,31 @@ public class ProductServiceImpl implements ProductService {
     private final SpecificationRepository specificationRepository;
 
     @Override
-    public ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO) {
+    public ProductResponse createProduct(ProductRequest productRequest) {
         Product product = new Product();
-        return getProductResponseDTO(productRequestDTO, product);
+        return getProductResponseDTO(productRequest, product);
     }
 
     @Override
-    public ProductResponseDTO updateProduct(Long id, ProductRequestDTO productRequestDTO) {
+    public ProductResponse updateProduct(Long id, ProductRequest productRequest) {
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isEmpty()) {
             throw new RuntimeException("Product not found with id" + id);
         }
         Product product = optionalProduct.get();
-        return getProductResponseDTO(productRequestDTO, product);
+        return getProductResponseDTO(productRequest, product);
     }
 
-    private ProductResponseDTO getProductResponseDTO(ProductRequestDTO productRequestDTO, Product product) {
-        product.setTitle(productRequestDTO.getTitle());
-        product.setThumbnail(productRequestDTO.getThumbnail());
-        product.setProductDate(productRequestDTO.getProductDate());
-        product.setPrice(productRequestDTO.getPrice());
-        product.setDelete(productRequestDTO.isDelete());
-        Long categoryId = productRequestDTO.getCategory();
+    private ProductResponse getProductResponseDTO(ProductRequest productRequest, Product product) {
+        product.setTitle(productRequest.getTitle());
+        product.setThumbnail(productRequest.getThumbnail());
+        product.setProductDate(productRequest.getProductDate());
+        product.setPrice(productRequest.getPrice());
+        product.setDelete(productRequest.isDelete());
+        Long categoryId = productRequest.getCategory();
         Category category = categoryRepository.findById(categoryId).orElse(null);
         product.setCategory(category);
-        Long userId = productRequestDTO.getUser();
+        Long userId = productRequest.getUser();
         User user = userRepository.findById(userId).orElse(null);
         product.setUser(user);
         productRepository.save(product);
@@ -67,20 +67,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResponseDTO delete(Long id) {
+    public Response delete(Long id) {
         Optional<Product> product=productRepository.findById(id);
         if (product.isPresent()){
             Product foundProduct= product.get();
             foundProduct.setDelete(true);
             productRepository.save(foundProduct);
-        return new ResponseDTO("Product delete successfully!", null, HttpStatus.OK.value(), true);
+        return new Response("Product delete successfully!", null, HttpStatus.OK.value(), true);
         } else {
-            return new ResponseDTO("Product delete false", null, HttpStatus.NOT_FOUND.value(), false);
+            return new Response("Product delete false", null, HttpStatus.NOT_FOUND.value(), false);
         }
     }
 
     @Override
-    public ResponseDTO search(SearchRequestDTO searchRequestDTO) {
+    public Response search(SearchRequest searchRequest) {
         return null;
     }
 
@@ -100,16 +100,16 @@ public class ProductServiceImpl implements ProductService {
 //    }
 
     @Override
-    public ResponseDTO increaseViews(Long id) {
-        ResponseDTO responseDTO=new ResponseDTO();
+    public Response increaseViews(Long id) {
+        Response response =new Response();
         Product product=productRepository.findById(id).orElseThrow(EntityExistsException::new);
         int currentView= product.getView();
         currentView+=1;
         product.setView(currentView);
         productRepository.save(product);
-        responseDTO.setMessage("OK");
-        responseDTO.setStatus(HttpStatus.OK.value());
-        return responseDTO;
+        response.setMessage("OK");
+        response.setStatus(HttpStatus.OK.value());
+        return response;
     }
 
 }

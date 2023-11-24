@@ -1,11 +1,11 @@
-package com.winzfast.dto.response;
+package com.winzfast.dto.response.product;
 
 
 import com.winzfast.model.Product;
 import lombok.Data;
 
 @Data
-public class CategoryResponseDTO {
+public class CategoryResponse {
     private Long id;
     private String logo;
     private String name;

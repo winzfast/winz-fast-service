@@ -1,8 +1,8 @@
 package com.winzfast.controller;
 
 
-import com.winzfast.dto.request.SpecificationRequestDTO;
-import com.winzfast.dto.response.SpecificationResponseDTO;
+import com.winzfast.dto.request.product.SpecificationRequest;
+import com.winzfast.dto.response.product.SpecificationResponse;
 import com.winzfast.model.Specification;
 import com.winzfast.repository.ProductRepository;
 import com.winzfast.service.SpecificationService;
@@ -21,20 +21,20 @@ SpecificationRestController {
     private final SpecificationService specificationService;
     private final ProductRepository productRepository;
     @PostMapping("/create")
-    public ResponseEntity<?> createSpecification(@RequestBody SpecificationRequestDTO specificationRequestDTO){
+    public ResponseEntity<?> createSpecification(@RequestBody SpecificationRequest specificationRequest){
         try {
-            SpecificationResponseDTO specificationResponseDTO= specificationService.createSpecification(specificationRequestDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(specificationResponseDTO.getId()+"Create Specification Successfully!");
+            SpecificationResponse specificationResponse = specificationService.createSpecification(specificationRequest);
+            return ResponseEntity.status(HttpStatus.CREATED).body(specificationResponse.getId()+"Create Specification Successfully!");
         } catch (RuntimeException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Create Failed");
         }
 
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<SpecificationResponseDTO> updateProduct(@PathVariable Long id, @RequestBody SpecificationRequestDTO specificationRequestDTO) {
-        SpecificationResponseDTO specificationResponseDTO = specificationService.updateSpecification(id,specificationRequestDTO);
-        if (specificationRequestDTO != null) {
-            return new ResponseEntity<>(specificationResponseDTO, HttpStatus.OK);
+    public ResponseEntity<SpecificationResponse> updateProduct(@PathVariable Long id, @RequestBody SpecificationRequest specificationRequest) {
+        SpecificationResponse specificationResponse = specificationService.updateSpecification(id, specificationRequest);
+        if (specificationRequest != null) {
+            return new ResponseEntity<>(specificationResponse, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

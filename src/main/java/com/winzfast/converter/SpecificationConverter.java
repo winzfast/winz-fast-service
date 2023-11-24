@@ -1,26 +1,26 @@
 package com.winzfast.converter;
 
 
-import com.winzfast.dto.response.SpecificationResponseDTO;
+import com.winzfast.dto.response.product.SpecificationResponse;
 import com.winzfast.model.Specification;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SpecificationConverter {
-    public SpecificationResponseDTO getSpecificationResponseDTO(Specification specification){
-        SpecificationResponseDTO specificationResponseDTO =new SpecificationResponseDTO();
-        specificationResponseDTO.setId(specification.getId());
-        specificationResponseDTO.setBrand(specification.getBrand());
-        specificationResponseDTO.setCarModel(specification.getCarModel());
-        specificationResponseDTO.setEngine(specification.getEngine());
-        specificationResponseDTO.setYear(specification.getYear());
-        specificationResponseDTO.setFuel(specification.getFuel());
-        specificationResponseDTO.setOrigin(specification.getOrigin());
-        specificationResponseDTO.setGear(specification.getGear());
-        specificationResponseDTO.setDelete(specification.isDelete());
-        specificationResponseDTO.setNumberOfSeat(specification.getNumberOfSeat());
-        specificationResponseDTO.setProduct(specification.getProduct().getId());
-        return specificationResponseDTO;
+    public SpecificationResponse getSpecificationResponseDTO(Specification specification){
+        SpecificationResponse specificationResponse =new SpecificationResponse();
+        specificationResponse.setId(specification.getId());
+        specificationResponse.setBrand(specification.getBrand());
+        specificationResponse.setCarModel(specification.getCarModel());
+        specificationResponse.setEngine(specification.getEngine());
+        specificationResponse.setYear(specification.getYear());
+        specificationResponse.setFuel(specification.getFuel());
+        specificationResponse.setOrigin(specification.getOrigin());
+        specificationResponse.setGear(specification.getGear());
+        specificationResponse.setDelete(specification.isDelete());
+        specificationResponse.setNumberOfSeat(specification.getNumberOfSeat());
+        specificationResponse.setProduct(specification.getProduct().getId());
+        return specificationResponse;
     }
 
 }
