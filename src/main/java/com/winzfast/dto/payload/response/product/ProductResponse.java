@@ -1,6 +1,8 @@
 package com.winzfast.dto.payload.response.product;
 
+import com.winzfast.model.Category;
 import com.winzfast.model.Specification;
+import com.winzfast.model.User;
 import lombok.Data;
 
 import java.util.Date;

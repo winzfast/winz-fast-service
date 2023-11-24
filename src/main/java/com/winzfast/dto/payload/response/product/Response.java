@@ -9,15 +9,16 @@ import lombok.NoArgsConstructor;
 /**
  * @author ADMIN
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class Response {
-    private String message;
-    private Object data;
-    private int status;
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public class Response {
+        private String message;
+        private Object data;
+        private int status;
 
-    public Response(String s, Object o, int value, boolean b) {
+        public Response(String s, Object o, int value, boolean b) {
 
+        }
     }
-}
+

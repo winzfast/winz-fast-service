@@ -1,5 +1,6 @@
 package com.winzfast.dto.payload.response.product;
 
+import com.winzfast.model.Product;
 import lombok.Data;
 
 /**
@@ -17,7 +18,7 @@ public class SpecificationResponse {
     private String origin;
     private String gear;
     private int numberOfSeat;
-    private Long product;
     private boolean isDelete;
     private String message;
+    private Long product;
 }

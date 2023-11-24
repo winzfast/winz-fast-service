@@ -1,8 +1,11 @@
 package com.winzfast.dto.payload.request.product;
 
+import com.winzfast.model.Specification;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * @author ADMIN
@@ -13,7 +16,5 @@ import lombok.NoArgsConstructor;
 public class SearchRequest {
 
     private String title;
-    private String brand;
-    private String carModel;
 
 }

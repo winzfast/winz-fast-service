@@ -28,17 +28,6 @@ public class SpecificationServiceImpl implements SpecificationService {
     private final SpecificationConverter specificationConverter;
     private final SpecificationRepository specificationRepository;
     private final ProductRepository productRepository;
-    private final ProductService productService;
-
-    @Override
-    public SpecificationResponse createSpecification(SpecificationRequest specificationRequest) {
-//        if (!productService.exists(specificationRequest.getProduct().getId())) {
-//            throw new RuntimeException("Product not found");
-//        }
-        Specification specification = new Specification();
-        return getSpecificationResponse(specificationRequest, specification);
-    }
-
     @Override
     public SpecificationResponse updateSpecification(Long id, SpecificationRequest specificationRequest) {
         Optional<Specification> optionalSpecification = specificationRepository.findById(id);

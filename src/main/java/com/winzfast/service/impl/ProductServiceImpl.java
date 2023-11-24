@@ -4,6 +4,8 @@ package com.winzfast.service.impl;
 import com.winzfast.converter.ProductConverter;
 import com.winzfast.dto.payload.request.product.ProductRequest;
 import com.winzfast.dto.payload.request.product.SearchRequest;
+import com.winzfast.dto.payload.response.product.CommonResponse;
+import com.winzfast.dto.payload.response.product.PageResponse;
 import com.winzfast.dto.payload.response.product.ProductResponse;
 import com.winzfast.dto.payload.response.product.Response;
 import com.winzfast.model.Category;
@@ -15,6 +17,8 @@ import com.winzfast.repository.UserRepository;
 import com.winzfast.service.ProductService;
 import jakarta.persistence.EntityExistsException;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -34,12 +38,6 @@ public class ProductServiceImpl implements ProductService {
     private final UserRepository userRepository;
 
     @Override
-    public ProductResponse createProduct(ProductRequest productRequest) {
-        Product product = new Product();
-        return getProductResponse(productRequest, product);
-    }
-
-    @Override
     public ProductResponse updateProduct(Long id, ProductRequest productRequest) {
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isEmpty()) {
@@ -54,7 +52,6 @@ public class ProductServiceImpl implements ProductService {
         product.setThumbnail(productRequest.getThumbnail());
         product.setProductDate(productRequest.getProductDate());
         product.setPrice(productRequest.getPrice());
-        product.setDelete(productRequest.isDelete());
         Long categoryId = productRequest.getCategory();
         Category category = categoryRepository.findById(categoryId).orElse(null);
         product.setCategory(category);
@@ -68,6 +65,38 @@ public class ProductServiceImpl implements ProductService {
     public boolean exists(Long id) {
         return productRepository.existsById(id);
     }
+
+//    @Override
+//    public Response search(SearchRequest searchRequest) {
+//        String keyword = "%" + searchRequest.getTitle() + "%";
+//        List<Product> foundProducts = productRepository.searchByTitleAndSpecification(keyword);
+//
+//        if(!foundProducts.isEmpty()){
+//            return new Response("Found products", foundProducts, HttpStatus.OK.value());
+//        } else {
+//            return new Response("Not found products", null, HttpStatus.NOT_FOUND.value());
+//        }
+//    }
+
+    @Override
+    public CommonResponse<ProductResponse> searchAll(String title, Pageable pageable) {
+        Page<Product> products=productRepository.findByTitleLike('%' +title+ '%', pageable);
+        List<Product> productList=products.toList();
+        List<ProductResponse> productResponses= productConverter.getProductListDTO(productList);
+        PageResponse<ProductResponse> pageResponse =new PageResponse<>();
+        pageResponse.setContent(productResponses);
+        pageResponse.setPage(products.getNumber());
+        pageResponse.setSize(products.getSize());
+        pageResponse.setTotalPage(products.getTotalElements());
+        pageResponse.setTotalElements(products.getTotalElements());
+        CommonResponse<ProductResponse> commonResponse = new CommonResponse<>();
+        commonResponse.setMessage("Product Found");
+        commonResponse.setStatus(true);
+        commonResponse.setData(pageResponse);
+
+        return null;
+    }
+
 
     @Override
     public Response delete(Long id) {
@@ -85,19 +114,7 @@ public class ProductServiceImpl implements ProductService {
 
 
 
-    @Override
-    public Response search(SearchRequest searchRequestDTO) {
-        List<Product> products = productRepository.findByTitleAndSpecificationsBrandAndSpecificationsCarModel(
-                searchRequestDTO.getTitle(),
-                searchRequestDTO.getBrand(),
-                searchRequestDTO.getCarModel()
-        );
-        if (!products.isEmpty()){
-            return new Response("Found products", products, HttpStatus.OK.value());
-        } else {
-            return new Response("Not found products", null, HttpStatus.OK.value());
-        }
-    }
+
 
     @Override
     public Response increaseViews(Long id) {

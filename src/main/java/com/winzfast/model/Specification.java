@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "specifications")
@@ -32,9 +34,9 @@ public class Specification {
     private String gear;
     @Column(name = "number_of_seat")
     private int numberOfSeat;
+    @Column(name = "is_deleted")
+    private boolean isDelete;
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-    @Column(name = "is_deleted")
-    private boolean isDelete;
 }

@@ -1,5 +1,6 @@
 package com.winzfast.dto.payload.request.product;
 
+import com.winzfast.model.Product;
 import lombok.Data;
 
 /**

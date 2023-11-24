@@ -1,19 +1,13 @@
 package com.winzfast.dto.payload.request.product;
 
-import com.winzfast.model.Category;
 import com.winzfast.model.Specification;
-
-import com.winzfast.model.User;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-/**
- * @author ADMIN
- */
 @Data
-public class ProductRequest {
-
+public class NewsRequest {
     private Long id;
     private String title;
     private String thumbnail;
@@ -23,6 +17,13 @@ public class ProductRequest {
     private Long user;
     private Long category;
     private Specification specification;
-    private boolean isDelete;
-
+    private String brand;
+    private String carModel;
+    private String engine;
+    private int year;
+    private String fuel;
+    private String origin;
+    private String gear;
+    private int numberOfSeat;
+    private Long product;
 }
