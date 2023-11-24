@@ -7,9 +7,11 @@ import com.test.winzfast.dto.payload.response.product.ProductResponse;
 import com.test.winzfast.dto.payload.response.product.Response;
 import com.test.winzfast.model.Category;
 import com.test.winzfast.model.Product;
+import com.test.winzfast.model.Specification;
 import com.test.winzfast.model.User;
 import com.test.winzfast.repository.CategoryRepository;
 import com.test.winzfast.repository.ProductRepository;
+import com.test.winzfast.repository.SpecificationRepository;
 import com.test.winzfast.repository.UserRepository;
 import com.test.winzfast.service.ProductService;
 import jakarta.persistence.EntityExistsException;
@@ -17,6 +19,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +34,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductConverter productConverter;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
+    private final SpecificationRepository specificationRepository;
 
     @Override
     public ProductResponse createProduct(ProductRequest productRequest) {
@@ -86,20 +90,36 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-
-
-
     @Override
-    public Response search(SearchRequest searchRequest) {
-       String keyword = "%" + searchRequest.getTitle() + "%";
-       List<Product> foundProducts = productRepository.searchInProductAndSpecifications(keyword);
+    public Response search(SearchRequest searchRequestDTO) {
+        List<Product> foundProducts = new ArrayList<>();
 
-       if(!foundProducts.isEmpty()){
-           return new Response("Found products", foundProducts, HttpStatus.OK.value());
-       } else {
-           return new Response("Not found products", null, HttpStatus.OK.value());
-       }
+        if (searchRequestDTO.getTitle() != null && !searchRequestDTO.getTitle().isEmpty()) {
+            foundProducts.addAll(productRepository.findByTitleContaining(searchRequestDTO.getTitle()));
+        }
+
+        if (searchRequestDTO.getBrand() != null && !searchRequestDTO.getBrand().isEmpty()
+                && searchRequestDTO.getCarModel() != null && !searchRequestDTO.getCarModel().isEmpty()) {
+            List<Specification> specifications = specificationRepository.findByBrandAndCarModelContaining(
+                    searchRequestDTO.getBrand(), searchRequestDTO.getCarModel());
+
+            if (!specifications.isEmpty()) {
+                for (Specification spec : specifications) {
+                    if (spec.getProducts() != null) {
+                        foundProducts.addAll(spec.getProducts());
+                    }
+                }
+            }
+        }
+
+        if (!foundProducts.isEmpty()) {
+            return new Response("Found products", foundProducts, HttpStatus.OK.value());
+        } else {
+            return new Response("Not found products", null, HttpStatus.OK.value());
+        }
     }
+}
+
 
     @Override
     public Response increaseViews(Long id) {

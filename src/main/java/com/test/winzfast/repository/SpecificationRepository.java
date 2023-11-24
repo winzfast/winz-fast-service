@@ -11,4 +11,6 @@ public interface SpecificationRepository extends JpaRepository<Specification,Lon
 
     List<Specification> findByCarModel(String carModel);
 
+    List<Specification> findByBrandAndCarModelContaining(String brand, String carModel);
+
 }

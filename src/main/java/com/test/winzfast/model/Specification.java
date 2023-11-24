@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 
+/**
+ * @author ADMIN
+ */
 @Entity
 @Table(name = "specifications")
 @Data

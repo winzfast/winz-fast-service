@@ -25,6 +25,7 @@ public class ProductRestController {
         ProductResponse productResponseDTO= productService.createProduct(productRequestDTO);
         return new ResponseEntity<>(productResponseDTO, HttpStatus.CREATED);
     }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @RequestBody ProductRequest productRequestDTO) {
         ProductResponse productResponseDTO = productService.updateProduct(id,productRequestDTO);
@@ -34,6 +35,7 @@ public class ProductRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @DeleteMapping("/{id}")
     public Response deleteProduct(@PathVariable Long id) {
         return productService.delete(id);
