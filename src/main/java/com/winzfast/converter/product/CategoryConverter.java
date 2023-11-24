@@ -1,4 +1,4 @@
-package com.winzfast.converter;
+package com.winzfast.converter.product;
 
 import org.springframework.stereotype.Component;
 

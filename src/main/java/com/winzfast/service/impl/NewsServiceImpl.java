@@ -1,7 +1,6 @@
 package com.winzfast.service.impl;
 
-import com.winzfast.converter.NewsConverter;
-import com.winzfast.converter.ProductConverter;
+import com.winzfast.converter.product.NewsConverter;
 import com.winzfast.dto.payload.request.product.NewsRequest;
 import com.winzfast.dto.payload.response.product.NewsResponse;
 import com.winzfast.model.Category;

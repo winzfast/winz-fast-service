@@ -1,4 +1,4 @@
-package com.winzfast.controller;
+package com.winzfast.controller.product;
 
 import com.winzfast.dto.payload.request.product.NewsRequest;
 import com.winzfast.dto.payload.request.product.ProductRequest;

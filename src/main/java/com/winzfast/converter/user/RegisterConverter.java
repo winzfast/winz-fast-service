@@ -1,4 +1,4 @@
-package com.winzfast.converter;
+package com.winzfast.converter.user;
 
 import com.winzfast.dto.payload.response.user.RegisterResponse;
 import com.winzfast.model.User;

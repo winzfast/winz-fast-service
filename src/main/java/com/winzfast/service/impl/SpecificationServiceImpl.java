@@ -1,14 +1,13 @@
 package com.winzfast.service.impl;
 
 
-import com.winzfast.converter.SpecificationConverter;
+import com.winzfast.converter.product.SpecificationConverter;
 import com.winzfast.dto.payload.request.product.SpecificationRequest;
 import com.winzfast.dto.payload.response.product.SpecificationResponse;
 import com.winzfast.model.Product;
 import com.winzfast.model.Specification;
 import com.winzfast.repository.ProductRepository;
 import com.winzfast.repository.SpecificationRepository;
-import com.winzfast.service.ProductService;
 import com.winzfast.service.SpecificationService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;

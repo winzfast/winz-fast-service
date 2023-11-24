@@ -32,4 +32,5 @@ public interface UserService {
     ResetPasswordResponse resetPassword(ResetPasswordRequest resetPasswordRequest);
 
     UserDTO getUserById(Long id);
+    Iterable<UserDTO> findUser(String username);
 }

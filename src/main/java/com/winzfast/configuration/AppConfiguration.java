@@ -1,8 +1,8 @@
 package com.winzfast.configuration;
 
 
-import com.winzfast.converter.LoginConverter;
-import com.winzfast.converter.RegisterConverter;
+import com.winzfast.converter.user.LoginConverter;
+import com.winzfast.converter.user.RegisterConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ public class AppConfiguration {
     }
 
     @Bean
-    public RegisterConverter registerConverter(){
+    public RegisterConverter registerConverter() {
         return new RegisterConverter();
     }
 }

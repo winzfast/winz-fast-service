@@ -1,4 +1,4 @@
-package com.winzfast.controller;
+package com.winzfast.controller.user;
 
 import com.winzfast.dto.UserDTO;
 import com.winzfast.service.UserService;

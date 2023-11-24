@@ -1,9 +1,8 @@
 package com.winzfast.service.impl;
 
 
-import com.winzfast.converter.ProductConverter;
+import com.winzfast.converter.product.ProductConverter;
 import com.winzfast.dto.payload.request.product.ProductRequest;
-import com.winzfast.dto.payload.request.product.SearchRequest;
 import com.winzfast.dto.payload.response.product.CommonResponse;
 import com.winzfast.dto.payload.response.product.PageResponse;
 import com.winzfast.dto.payload.response.product.ProductResponse;

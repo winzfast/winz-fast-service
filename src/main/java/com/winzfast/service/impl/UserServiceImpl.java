@@ -1,8 +1,8 @@
 package com.winzfast.service.impl;
 
 
-import com.winzfast.converter.LoginConverter;
-import com.winzfast.converter.RegisterConverter;
+import com.winzfast.converter.user.LoginConverter;
+import com.winzfast.converter.user.RegisterConverter;
 import com.winzfast.dto.UserDTO;
 import com.winzfast.dto.payload.request.user.LoginRequest;
 import com.winzfast.dto.payload.request.user.RegisterRequest;
@@ -19,10 +19,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @AllArgsConstructor
 @Service
@@ -34,9 +33,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public Iterable<UserDTO> findAll() {
         Iterable<User> users = userRepository.findAll();
-        return StreamSupport.stream(users.spliterator(), true)
-                .map(user -> modelMapper.map(user, UserDTO.class))
-                .collect(Collectors.toList());
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for (User user : users) {
+            userDTOS.add(modelMapper.map(user, UserDTO.class));
+        }
+        return userDTOS;
+//        return StreamSupport.stream(users.spliterator(), true)
+//                .map(user -> modelMapper.map(user, UserDTO.class))
+//                .collect(Collectors.toList());
     }
 
     @Override
@@ -113,4 +117,17 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(user, UserDTO.class);
     }
 
+    @Override
+    public Iterable<UserDTO> findUser(String input) {
+        Iterable<User> users = userRepository.findAll();
+
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for (User user : users) {
+            if (user.getUsername().contains(input)
+                    || user.getEmail().contains(input)) {
+                userDTOS.add(modelMapper.map(user, UserDTO.class));
+            }
+        }
+        return userDTOS;
+    }
 }
