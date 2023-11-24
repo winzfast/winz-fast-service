@@ -1,13 +1,13 @@
 package com.winzfast.service.impl;
 
-import com.winzfast.converter.SpecificationConverter;
-import com.winzfast.dto.request.product.SpecificationRequest;
-import com.winzfast.dto.response.product.SpecificationResponse;
+
+import com.winzfast.converter.product.SpecificationConverter;
+import com.winzfast.dto.payload.request.product.SpecificationRequest;
+import com.winzfast.dto.payload.response.product.SpecificationResponse;
 import com.winzfast.model.Product;
 import com.winzfast.model.Specification;
 import com.winzfast.repository.ProductRepository;
 import com.winzfast.repository.SpecificationRepository;
-import com.winzfast.service.ProductService;
 import com.winzfast.service.SpecificationService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author ADMIN
+ */
 @Service
 @AllArgsConstructor
 public class SpecificationServiceImpl implements SpecificationService {
@@ -24,17 +27,6 @@ public class SpecificationServiceImpl implements SpecificationService {
     private final SpecificationConverter specificationConverter;
     private final SpecificationRepository specificationRepository;
     private final ProductRepository productRepository;
-    private final ProductService productService;
-
-    @Override
-    public SpecificationResponse createSpecification(SpecificationRequest specificationRequest) {
-//        if (!productService.exists(specificationRequestDTO.getProduct().getId())) {
-//            throw new RuntimeException("Product not found");
-//        }
-        Specification specification = new Specification();
-        return getSpecificationResponseDTO(specificationRequest, specification);
-    }
-
     @Override
     public SpecificationResponse updateSpecification(Long id, SpecificationRequest specificationRequest) {
         Optional<Specification> optionalSpecification = specificationRepository.findById(id);
@@ -42,11 +34,11 @@ public class SpecificationServiceImpl implements SpecificationService {
             throw new RuntimeException("Specification not found with id" + id);
         }
         Specification specification = optionalSpecification.get();
-        return getSpecificationResponseDTO(specificationRequest, specification);
+        return getSpecificationResponse(specificationRequest, specification);
 
     }
 
-    private SpecificationResponse getSpecificationResponseDTO(SpecificationRequest specificationRequest, Specification specification) {
+    private SpecificationResponse getSpecificationResponse(SpecificationRequest specificationRequest, Specification specification) {
         specification.setBrand(specificationRequest.getBrand());
         specification.setCarModel(specificationRequest.getCarModel());
         specification.setGear(specificationRequest.getGear());
@@ -67,10 +59,10 @@ public class SpecificationServiceImpl implements SpecificationService {
     public List<Specification> sort(String sortBy, String brand, String carModel) {
 
         List<Specification> specifications = new ArrayList<>();
-        if (sortBy != null && sortBy.equals("brand")) {
+        if ("brand".equals(sortBy)) {
             specifications = specificationRepository.findAll(Sort.by("brand"));
         }
-        if (sortBy != null && sortBy.equals("carModel")) {
+        if ("carModel".equals(sortBy)) {
             specifications = specificationRepository.findAll(Sort.by("carModel"));
         }
         if (brand != null) {

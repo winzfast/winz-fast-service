@@ -1,21 +1,22 @@
 package com.winzfast.service;
 
 import com.winzfast.dto.UserDTO;
-import com.winzfast.exception.DuplicatedDataException;
-import com.winzfast.exception.InvalidInputException;
 import com.winzfast.dto.request.user.LoginRequest;
 import com.winzfast.dto.request.user.RegisterRequest;
 import com.winzfast.dto.request.user.ResetPasswordRequest;
 import com.winzfast.dto.response.user.LoginResponse;
 import com.winzfast.dto.response.user.RegisterResponse;
 import com.winzfast.dto.response.user.ResetPasswordResponse;
+import com.winzfast.exception.DuplicatedDataException;
+import com.winzfast.exception.InvalidInputException;
+
 
 import java.util.Optional;
 
 public interface UserService {
 
     //CRUD
-    Iterable<UserDTO> findAll();
+    Iterable<UserDTO>  findAll();
 
     Optional<UserDTO> findById(Long id);
 
@@ -31,6 +32,5 @@ public interface UserService {
     ResetPasswordResponse resetPassword(ResetPasswordRequest resetPasswordRequest);
 
     UserDTO getUserById(Long id);
-
     Iterable<UserDTO> findUser(String username);
 }

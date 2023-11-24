@@ -1,16 +1,17 @@
 package com.winzfast.service.impl;
 
-import com.winzfast.converter.LoginConverter;
-import com.winzfast.converter.RegisterConverter;
+
+import com.winzfast.converter.user.LoginConverter;
+import com.winzfast.converter.user.RegisterConverter;
 import com.winzfast.dto.UserDTO;
+import com.winzfast.dto.payload.request.user.LoginRequest;
+import com.winzfast.dto.payload.request.user.RegisterRequest;
+import com.winzfast.dto.payload.request.user.ResetPasswordRequest;
+import com.winzfast.dto.payload.response.user.LoginResponse;
+import com.winzfast.dto.payload.response.user.RegisterResponse;
+import com.winzfast.dto.payload.response.user.ResetPasswordResponse;
 import com.winzfast.exception.DuplicatedDataException;
 import com.winzfast.model.User;
-import com.winzfast.dto.request.user.LoginRequest;
-import com.winzfast.dto.request.user.RegisterRequest;
-import com.winzfast.dto.request.user.ResetPasswordRequest;
-import com.winzfast.dto.response.user.LoginResponse;
-import com.winzfast.dto.response.user.RegisterResponse;
-import com.winzfast.dto.response.user.ResetPasswordResponse;
 import com.winzfast.repository.UserRepository;
 import com.winzfast.service.UserService;
 import lombok.AllArgsConstructor;
@@ -37,10 +38,6 @@ public class UserServiceImpl implements UserService {
             userDTOS.add(modelMapper.map(user, UserDTO.class));
         }
         return userDTOS;
-
-//        return StreamSupport.stream(users.spliterator(), true)
-//                .map(user -> modelMapper.map(user, UserDTO.class))
-//                .collect(Collectors.toList());
     }
 
     @Override
@@ -76,6 +73,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public RegisterResponse register(RegisterRequest registerRequest) throws DuplicatedDataException {
+        List<User> userList = userRepository.findAll();
 
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
             throw new DuplicatedDataException("Username is already exist!");
@@ -128,13 +126,5 @@ public class UserServiceImpl implements UserService {
             }
         }
         return userDTOS;
-
-//        return StreamSupport.stream(users.spliterator(), true)
-//                .map(user -> modelMapper.map(user, UserDTO.class))
-//                .filter(userDTO -> userDTO.getUsername().contains(input)
-//                        || userDTO.getEmail().contains(input)
-//                        || userDTO.getPhoneNumber().contains(input))
-//                .collect(Collectors.toList());
-//
     }
 }

@@ -39,5 +39,4 @@ public class Product {
     private Category category;
     @OneToMany(mappedBy = "product")
     private List<Specification> specifications;
-
 }

@@ -1,18 +1,17 @@
 package com.winzfast.service;
 
-
-import com.winzfast.dto.request.product.ProductRequest;
-import com.winzfast.dto.request.product.SearchRequest;
-import com.winzfast.dto.response.product.ProductResponse;
-import com.winzfast.dto.response.product.Response;
+import com.winzfast.dto.payload.request.product.ProductRequest;
+import com.winzfast.dto.payload.response.product.CommonResponse;
+import com.winzfast.dto.payload.response.product.ProductResponse;
+import com.winzfast.dto.payload.response.Response;
+import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
-
-    ProductResponse createProduct(ProductRequest productRequest);
-
     ProductResponse updateProduct(Long id, ProductRequest productRequest);
+
     boolean exists(Long id);
-    Response delete(Long id);
-    Response search(SearchRequest searchRequest);
+
+    CommonResponse<ProductResponse> searchAll(String title, Pageable pageable);
+
     Response increaseViews(Long id);
 }

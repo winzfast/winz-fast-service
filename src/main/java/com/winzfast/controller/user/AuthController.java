@@ -1,31 +1,30 @@
-package com.winzfast.controller;
+package com.winzfast.controller.user;
 
-
-import com.winzfast.dto.request.user.LoginRequest;
-import com.winzfast.dto.request.user.RegisterRequest;
-import com.winzfast.dto.request.user.ResetPasswordRequest;
-import com.winzfast.dto.response.user.LoginResponse;
-import com.winzfast.dto.response.user.RegisterResponse;
-import com.winzfast.dto.response.user.ResetPasswordResponse;
+import com.winzfast.dto.payload.request.user.LoginRequest;
+import com.winzfast.dto.payload.request.user.RegisterRequest;
+import com.winzfast.dto.payload.request.user.ResetPasswordRequest;
+import com.winzfast.dto.payload.response.user.LoginResponse;
+import com.winzfast.dto.payload.response.user.RegisterResponse;
+import com.winzfast.dto.payload.response.user.ResetPasswordResponse;
 import com.winzfast.exception.DuplicatedDataException;
 import com.winzfast.exception.InvalidInputException;
 import com.winzfast.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author ADMIN
+ */
 @RestController
 @RequestMapping("/api/auths")
 @CrossOrigin(origins = "*")
+@AllArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) throws InvalidInputException {
