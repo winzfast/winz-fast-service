@@ -1,14 +1,17 @@
-package com.winzfast.model;
+package com.winzfast.entity;
 
-import jakarta.persistence.*;
+
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
 @Table
-@Data
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Category {

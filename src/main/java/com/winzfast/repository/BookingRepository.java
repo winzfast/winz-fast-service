@@ -1,8 +1,8 @@
 package com.winzfast.repository;
 
-import com.winzfast.model.Booking;
-import com.winzfast.model.Product;
-import com.winzfast.model.User;
+import com.winzfast.entity.Booking;
+import com.winzfast.entity.Product;
+import com.winzfast.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,9 +1,8 @@
 package com.winzfast.converter.product;
 
 import com.winzfast.dto.payload.response.product.NewsResponse;
-import com.winzfast.dto.payload.response.product.ProductResponse;
-import com.winzfast.model.Product;
-import com.winzfast.model.Specification;
+import com.winzfast.entity.Product;
+import com.winzfast.entity.Specification;
 import org.springframework.stereotype.Component;
 
 @Component

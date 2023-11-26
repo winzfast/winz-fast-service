@@ -1,6 +1,6 @@
 package com.winzfast.dto;
 
-import com.winzfast.model.Address;
+import com.winzfast.entity.Address;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

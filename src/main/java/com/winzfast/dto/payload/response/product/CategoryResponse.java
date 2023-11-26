@@ -1,7 +1,7 @@
 package com.winzfast.dto.payload.response.product;
 
 
-import com.winzfast.model.Product;
+import com.winzfast.entity.Product;
 import lombok.Data;
 
 /**

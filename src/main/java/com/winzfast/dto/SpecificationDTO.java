@@ -1,25 +1,32 @@
-package com.winzfast.dto.payload.response.product;
+package com.winzfast.dto;
 
+import com.winzfast.entity.Product;
 import lombok.*;
 
-/**
- * @author ADMIN
- */
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SpecificationResponse {
+public class SpecificationDTO {
 
     private Long id;
+
     private String brand;
+
     private String carModel;
+
     private String engine;
+
     private int year;
+
     private String fuel;
+
     private String origin;
+
     private String gear;
+
     private int numberOfSeat;
-    private boolean isDelete;
-    private String message;
-    private Long product;
+
+    private Product product;
+
 }

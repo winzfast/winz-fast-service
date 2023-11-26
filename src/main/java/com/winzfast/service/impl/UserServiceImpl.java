@@ -11,7 +11,7 @@ import com.winzfast.dto.payload.response.user.LoginResponse;
 import com.winzfast.dto.payload.response.user.RegisterResponse;
 import com.winzfast.dto.payload.response.user.ResetPasswordResponse;
 import com.winzfast.exception.DuplicatedDataException;
-import com.winzfast.model.User;
+import com.winzfast.entity.User;
 import com.winzfast.repository.UserRepository;
 import com.winzfast.service.UserService;
 import lombok.AllArgsConstructor;

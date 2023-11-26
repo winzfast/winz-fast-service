@@ -2,8 +2,8 @@ package com.winzfast.service;
 
 
 import com.winzfast.dto.BookingDTO;
-import com.winzfast.model.Product;
-import com.winzfast.model.User;
+import com.winzfast.entity.Product;
+import com.winzfast.entity.User;
 
 import java.util.List;
 

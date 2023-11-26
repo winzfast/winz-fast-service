@@ -2,7 +2,7 @@ package com.winzfast.converter.product;
 
 
 import com.winzfast.dto.payload.response.product.SpecificationResponse;
-import com.winzfast.model.Specification;
+import com.winzfast.entity.Specification;
 import org.springframework.stereotype.Component;
 
 @Component

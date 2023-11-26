@@ -2,27 +2,32 @@ package com.winzfast.service.impl;
 
 
 import com.winzfast.converter.product.ProductConverter;
+import com.winzfast.dto.ProductDTO;
 import com.winzfast.dto.payload.request.product.ProductRequest;
 import com.winzfast.dto.payload.response.product.CommonResponse;
 import com.winzfast.dto.payload.response.product.PageResponse;
 import com.winzfast.dto.payload.response.product.ProductResponse;
-import com.winzfast.dto.payload.response.product.Response;
-import com.winzfast.model.Category;
-import com.winzfast.model.Product;
-import com.winzfast.model.User;
+import com.winzfast.dto.payload.response.Response;
+import com.winzfast.entity.Category;
+import com.winzfast.entity.Product;
+import com.winzfast.entity.User;
 import com.winzfast.repository.CategoryRepository;
 import com.winzfast.repository.ProductRepository;
 import com.winzfast.repository.UserRepository;
 import com.winzfast.service.ProductService;
-import jakarta.persistence.EntityExistsException;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author ADMIN
@@ -35,6 +40,17 @@ public class ProductServiceImpl implements ProductService {
     private final ProductConverter productConverter;
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
+
+    @Override
+    public Iterable<ProductDTO> getAll() {
+        Iterable<Product> products = productRepository.findAll();
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        for (Product product : products) {
+            productDTOS.add(modelMapper.map(product, ProductDTO.class));
+        }
+        return productDTOS;
+    }
 
     @Override
     public ProductResponse updateProduct(Long id, ProductRequest productRequest) {
@@ -43,10 +59,6 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException("Product not found with id" + id);
         }
         Product product = optionalProduct.get();
-        return getProductResponse(productRequest, product);
-    }
-
-    private ProductResponse getProductResponse(ProductRequest productRequest, Product product) {
         product.setTitle(productRequest.getTitle());
         product.setThumbnail(productRequest.getThumbnail());
         product.setProductDate(productRequest.getProductDate());
@@ -60,67 +72,93 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
         return productConverter.getProductResponseDTO(product);
     }
+
     @Override
     public boolean exists(Long id) {
         return productRepository.existsById(id);
     }
 
 //    @Override
-//    public Response search(SearchRequest searchRequest) {
-//        String keyword = "%" + searchRequest.getTitle() + "%";
-//        List<Product> foundProducts = productRepository.searchByTitleAndSpecification(keyword);
+//    public CommonResponse<ProductResponse> getAllProducts(Pageable pageable) {
+//        Page<Product> productPage = productRepository.findAll(pageable);
+//        List<ProductResponse> productResponses = productPage
+//                .getContent()
+//                .stream()
+//                .map(productConverter::getProductResponseDTO)
+//                .collect(Collectors.toList());
+//        PageResponse<ProductResponse> pageResponse = new PageResponse<>();
+//        pageResponse.setContent(productResponses);
+//        pageResponse.setPage(productPage.getNumber());
+//        pageResponse.setSize(productPage.getSize());
+//        pageResponse.setTotalPage(productPage.getTotalPages());
+//        pageResponse.setTotalElements(productPage.getTotalElements());
+//        CommonResponse commonResponse = new CommonResponse<>();
+//        commonResponse.setData(pageResponse);
+//        commonResponse.setStatus(true);
+//        commonResponse.setMessage("Products retrieved successfully");
+//        return commonResponse;
+//    }
 //
-//        if(!foundProducts.isEmpty()){
-//            return new Response("Found products", foundProducts, HttpStatus.OK.value());
+//    @Override
+//    public CommonResponse<ProductResponse> filterProductByPrice(Integer minPrice, Integer maxPrice, Pageable pageable) {
+//        Page<Product> productPage;
+//        if (minPrice != null && maxPrice != null) {
+//            productPage = productRepository.findByPriceBetween(minPrice, maxPrice, pageable);
+//        } else if (minPrice != null) {
+//            productPage = productRepository.findByPriceGreaterThanEqual(minPrice, pageable);
+//        } else if (maxPrice != null) {
+//            productPage = productRepository.findByPriceLessThanEqual(maxPrice, pageable);
 //        } else {
-//            return new Response("Not found products", null, HttpStatus.NOT_FOUND.value());
+//            productPage = productRepository.findAll(pageable);
 //        }
+//        List<ProductResponse> productResponses = productPage
+//                .getContent()
+//                .stream()
+//                .map(productConverter::getProductResponseDTO)
+//                .collect(Collectors.toList());
+//        PageResponse<ProductResponse> pageResponse = new PageResponse<>();
+//        pageResponse.setContent(productResponses);
+//        pageResponse.setPage(productPage.getNumber());
+//        pageResponse.setSize(productPage.getSize());
+//        pageResponse.setTotalPage(productPage.getTotalPages());
+//        pageResponse.setTotalElements(productPage.getTotalElements());
+//        CommonResponse commonResponse = new CommonResponse<>();
+//        commonResponse.setData(pageResponse);
+//        commonResponse.setStatus(true);
+//        commonResponse.setMessage("Filtered products retrieved successfully");
+//        return commonResponse;
+//    }
+//
+//    @Override
+//    public CommonResponse<ProductResponse> searchAll(String title, Pageable pageable) {
+//        Page<Product> products = productRepository.findByTitleLike('%' + title + '%', pageable);
+//        List<Product> productList = products.toList();
+//        List<ProductResponse> productResponses = productConverter.getProductListDTO(productList);
+//        PageResponse<ProductResponse> pageResponse = new PageResponse<>();
+//        pageResponse.setContent(productResponses);
+//        pageResponse.setPage(products.getNumber());
+//        pageResponse.setSize(products.getSize());
+//        pageResponse.setTotalPage(products.getTotalElements());
+//        pageResponse.setTotalElements(products.getTotalElements());
+//        CommonResponse<ProductResponse> commonResponse = new CommonResponse<>();
+//        commonResponse.setMessage("Product Found");
+//        commonResponse.setStatus(true);
+//        commonResponse.setData(pageResponse);
+//
+//        return null;
 //    }
 
     @Override
-    public CommonResponse<ProductResponse> searchAll(String title, Pageable pageable) {
-        Page<Product> products=productRepository.findByTitleLike('%' +title+ '%', pageable);
-        List<Product> productList=products.toList();
-        List<ProductResponse> productResponses= productConverter.getProductListDTO(productList);
-        PageResponse<ProductResponse> pageResponse =new PageResponse<>();
-        pageResponse.setContent(productResponses);
-        pageResponse.setPage(products.getNumber());
-        pageResponse.setSize(products.getSize());
-        pageResponse.setTotalPage(products.getTotalElements());
-        pageResponse.setTotalElements(products.getTotalElements());
-        CommonResponse<ProductResponse> commonResponse = new CommonResponse<>();
-        commonResponse.setMessage("Product Found");
-        commonResponse.setStatus(true);
-        commonResponse.setData(pageResponse);
-
+    public List<ProductResponse> getProductByCategoryId(Long id) {
         return null;
     }
 
-
-    @Override
-    public Response delete(Long id) {
-        Optional<Product> product=productRepository.findById(id);
-        if (product.isPresent()){
-            Product foundProduct= product.get();
-            foundProduct.setDelete(true);
-            productRepository.save(foundProduct);
-        return new Response("Product delete successfully!", null, HttpStatus.OK.value(), true);
-        } else {
-            return new Response("Product delete false", null, HttpStatus.NOT_FOUND.value(), false);
-        }
-    }
-
-
-
-
-
-
     @Override
     public Response increaseViews(Long id) {
-        Response responseDTO=new Response();
-        Product product=productRepository.findById(id).orElseThrow(EntityExistsException::new);
-        int currentView= product.getView();
-        currentView+=1;
+        Response responseDTO = new Response();
+        Product product = productRepository.findById(id).orElseThrow(EntityExistsException::new);
+        int currentView = product.getView();
+        currentView += 1;
         product.setView(currentView);
         productRepository.save(product);
         responseDTO.setMessage("OK");

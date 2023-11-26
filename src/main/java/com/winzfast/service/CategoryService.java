@@ -1,7 +1,7 @@
 package com.winzfast.service;
 
 
-import com.winzfast.model.Category;
+import com.winzfast.entity.Category;
 
 public interface CategoryService {
     Category findById(Long id);

@@ -1,17 +1,21 @@
 package com.winzfast.dto.payload.request.product;
 
-import com.winzfast.model.Specification;
+import com.winzfast.entity.Specification;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.stereotype.Component;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class NewsRequest {
     private Long id;
     private String title;
     private String thumbnail;
-    private Date productDate;
+    private LocalDateTime productDate;
     private String price;
     private int view;
     private Long user;

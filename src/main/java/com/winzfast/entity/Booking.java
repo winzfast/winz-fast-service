@@ -1,8 +1,8 @@
-package com.winzfast.model;
+package com.winzfast.entity;
 
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 

@@ -1,16 +1,19 @@
-package com.winzfast.model;
+package com.winzfast.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.winzfast.dto.payload.request.product.NewsRequest;
+import lombok.*;
+import org.springframework.util.StringUtils;
+
+import javax.persistence.*;
 
 
 @Entity
 @Table(name = "specifications")
-@Data
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Specification {
@@ -38,5 +41,7 @@ public class Specification {
     private boolean isDelete;
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @JsonIgnore
     private Product product;
+
 }

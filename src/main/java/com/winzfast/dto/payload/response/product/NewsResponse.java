@@ -1,17 +1,20 @@
 package com.winzfast.dto.payload.response.product;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.winzfast.entity.Category;
+import com.winzfast.entity.User;
+import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class NewsResponse {
 
     private String title;
     private String thumbnail;
-    private Date productDate;
+    private LocalDateTime productDate;
     private String price;
     private int view;
     private Long user;

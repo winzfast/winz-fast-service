@@ -1,5 +1,5 @@
 
-package com.winzfast.dto.payload.response.product;
+package com.winzfast.dto.payload.response;
 
 
 import lombok.AllArgsConstructor;

@@ -1,17 +1,19 @@
-package com.winzfast.model;
+package com.winzfast.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
-
 
 @Entity
 @Table
-@Data
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
@@ -24,7 +26,8 @@ public class Product {
     @Column(name = "thumbnail")
     private String thumbnail;
     @Column(name = "product_date", length = 50)
-    private Date productDate;
+    @CreationTimestamp
+    private LocalDateTime productDate;
     @Column(name = "price")
     private String price;
     @Column(name = "view")
@@ -33,10 +36,12 @@ public class Product {
     private boolean isDelete;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonIgnore
     private Category category;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product" )
     private List<Specification> specifications;
 }

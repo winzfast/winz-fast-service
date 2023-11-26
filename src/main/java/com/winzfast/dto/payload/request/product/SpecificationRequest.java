@@ -1,13 +1,16 @@
 package com.winzfast.dto.payload.request.product;
 
-import com.winzfast.model.Product;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author ADMIN
  */
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SpecificationRequest {
 
     private Long id;
