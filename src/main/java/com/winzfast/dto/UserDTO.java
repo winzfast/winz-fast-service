@@ -1,5 +1,6 @@
 package com.winzfast.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.winzfast.model.Address;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,5 +22,5 @@ public class UserDTO {
     private String email;
     private String phoneNumber;
     private String avatar;
-    private List<Address> addresses;
+    private String address;
 }

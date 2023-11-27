@@ -33,4 +33,5 @@ public interface UserService {
 
     UserDTO getUserById(Long id);
     Iterable<UserDTO> findUser(String username);
+
 }

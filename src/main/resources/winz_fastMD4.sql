@@ -11,7 +11,8 @@ create table users
     username      varchar(50),
     `password`    varchar(50),
     phone_number  varchar(15) unique,
-    avatar        varchar(50)
+    avatar        varchar(50),
+    address       varchar(255)
 );
 
 create table roles
@@ -22,16 +23,16 @@ create table roles
     foreign key (user_id) references users (id)
 );
 
-create table address
-(
-    id       bigint primary key auto_increment,
-    street   varchar(50),
-    district varchar(50),
-    city     varchar(50),
-    user_id  bigint,
-    foreign key (user_id) references users (id)
-
-);
+# create table address
+# (
+#     id       bigint primary key auto_increment,
+#     street   varchar(50),
+#     district varchar(50),
+#     city     varchar(50),
+#     user_id  long,
+#     foreign key (user_id) references users (id)
+#
+# );
 
 create table category
 (

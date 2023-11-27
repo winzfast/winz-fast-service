@@ -1,5 +1,6 @@
 package com.winzfast.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -52,7 +53,7 @@ public class User {
     @Column(name = "avatar")
     private String avatar;
 
-    @OneToMany(mappedBy = "userId")
-    private List<Address> addresses;
+    @Column(name = "address")
+    private String address;
 
 }
