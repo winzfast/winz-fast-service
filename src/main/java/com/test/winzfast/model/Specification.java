@@ -1,9 +1,7 @@
 package com.test.winzfast.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,7 +11,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "specifications")
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Specification {
@@ -45,8 +44,9 @@ public class Specification {
     @Column(name = "number_of_seat")
     private int numberOfSeat;
 
-    @OneToMany(mappedBy = "specification")
-    private List<Product> products;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Column(name = "is_deleted")
     private boolean isDelete;

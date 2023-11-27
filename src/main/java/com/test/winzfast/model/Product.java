@@ -1,16 +1,17 @@
 package com.test.winzfast.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
-@Table
-@Data
+@Table(name = "product")
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
@@ -39,14 +40,20 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "specifications_id")
-    private Specification specification;
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    private List<Specification> specifications;
 
+    @PrePersist
+    protected void onCreate() {
+        this.productDate = new Date();
+    }
 }
